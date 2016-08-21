@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>我为十力代颜</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no, email=no" />
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.ajax({
+                type: "get",//提交请求方法
+                url: "http://aiwan.com/wx/jsconfig?url=http://aiwan.shenyou.tv/stpro/",//提交的地址
+                dataType: 'json',
+                success: function (msg) {
+                    wx.config({
+                        debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                        appId: msg.data.appId, // 必填，公众号的唯一标识
+                        timestamp: msg.data.timestamp, // 必填，生成签名的时间戳
+                        nonceStr: msg.data.nonceStr, // 必填，生成签名的随机串
+                        signature: msg.data.signature,// 必填，签名，见附录1
+                        jsApiList: ['chooseImage','previewImage','uploadImage','downloadImage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                    });
+
+                }
+            });
+
+
+        });
+    </script>
+    <style>
+        #clipArea {
+            margin: 0 20px;
+            height: 400px;
+        }
+
+        #view {
+            width: 106px;
+            height: 167px;
+            background-color: #fdfcf7!important;
+            border:  1px dashed #d4d2c7;
+            background: url("img/add.jpg");
+            border-radius: 5px;
+        }
+        .photo-clip-area{
+            background: url("img/getMask.png") 100% 100%;
+            border: 1px solid rgb(221, 221, 221);
+        }
+    </style>
+</head>
+<body ontouchstart="">
+<section id="alert">
+    <div id="clipArea"></div>
+    <div class="btn_edit" style="position: relative;">
+        <input type="file" id="file" value="重新上传">
+        <div class="file_bg">重新上传</div>
+    </div>
+
+    <button id="clipBtn"  class="btn_edit">提交</button>
+    <button id="btn_close"  class="btn_edit">关闭</button>
+</section>
+
+
+<section id="main">
+    <div class="main_content">
+        <div class="title"><i class="num">1</i>请上传人物照片</div>
+        <div id="view"></div>
+        <input type="hidden" value="" id="img_src">
+        <div class="title"><i class="num">2</i>请选择文案颜色</div>
+        <div class="colors">
+            <span>
+                <input type="radio" name="color" class="color" checked value="red">
+                <b class="red"></b>
+            </span>
+            <span>
+                <input type="radio" name="color" class="color"  value="orange">
+                <b class="orange"></b>
+            </span>
+            <span>
+                <input type="radio" name="color" class="color"  value="yellow">
+                <b class="yellow"></b>
+            </span>
+            <span>
+                <input type="radio" name="color" class="color"  value="green">
+                <b class="green"></b>
+            </span>
+            <span>
+                <input type="radio" name="color" class="color"  value="cyan">
+                <b class="cyan"></b>
+            </span>
+            <span>
+                <input type="radio" name="color" class="color"  value="blue">
+                <b class="blue"></b>
+            </span>
+            <span>
+                <input type="radio" name="color" class="color"  value="purple">
+                <b class="purple"></b>
+            </span>
+        </div>
+        <div class="title"><i class="num">3</i>请输入人物描述</div>
+        <div class="description">
+            <input type="text" placeholder="能">
+            <input type="text" placeholder="能">
+        </div>
+    </div>
+
+
+</section>
+<div class="create_area">
+    <input type="submit" class="btn_create" value="生成海报">
+</div>
+
+
+
+
+<script src="js/iscroll-zoom.js"></script>
+<script src="js/hammer.js"></script>
+<script src="js/lrz.all.bundle.js"></script>
+<script src="js/jquery.photoClip.js"></script>
+<script>
+    //document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+    var clipArea = new bjj.PhotoClip("#clipArea", {
+        size: [212, 334],
+        outputSize: [530, 845],
+        file: "#file",
+        view: "#view",
+        ok: "#clipBtn",
+        loadStart: function() {
+            console.log("照片读取中");
+        },
+        loadComplete: function() {
+            console.log("照片读取完成");
+        },
+        clipFinish: function(dataURL) {
+            $("#img_src").val(dataURL);
+        }
+    });
+    //clipArea.destroy();
+</script>
+<script type="text/javascript">
+    $("#view").click(function(){
+        $("#file").trigger("click");
+        $("#alert").fadeIn();
+    });
+    $("#btn_close").click(function(){
+        $("#alert").fadeOut();
+    });
+    $("#clipBtn").click(function(){
+        $("#alert").fadeOut();
+    });
+    $(".btn_create").click(function(){
+        var img = $("#img_src").val();
+        var color = $(".colors input:checked").val();
+        var description1 = $(".description input:first-of-type").val();
+        var description2 = $(".description input:nth-of-type(2)").val();
+        $.ajax({
+            type: "post",//提交请求方法
+            url: "http://aiwan.com/stpro/mask",//提交的地址
+            data: {'img':img, 'color':color, 'description1':description1, 'description2':description2},
+            dataType: 'json',
+            success: function (msg) {
+                alert(msg);
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
