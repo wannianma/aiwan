@@ -28,8 +28,8 @@ return [
         ],
 
         'qiniu' => [
-            'access_key' => 'dQ6Trpb0F9zw0hve9j8X4Z0lL1MfbZ900fgtnKZ3',
-            'secret_key' => '1cb4q4Q-ha62T34Vfzi64QG68haQcJt8BfX06TlG',
+            'access_key' => '#',
+            'secret_key' => '#',
             'bucket' => 'shenyou',
             'bucket_url' => 'http://static.shenyou.tv/',
             'upload_pre' => 'test/',
