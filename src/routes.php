@@ -20,7 +20,7 @@ $app->get('/wx/jsconfig', function ($request, $response, $args) {
 });
 
 $app->post('/stpro/mask', function ($request, $response, $args) {
-    $img_base64 = $request->getParam('img');
+    $img_base64 = $request->getParam('image');
     $img = explode(',', $img_base64);
     if (count($img) < 2) {
         return $response->write("data is not allowed");
@@ -46,7 +46,13 @@ $app->post('/stpro/mask', function ($request, $response, $args) {
     // 对图片进行水印处理
     $mask_img = \Tools::getMaskOfImg($qiniu, $key, 'green', $word1, $word2, 'hello, word');
     $this->logger->info($qiniu['bucket_url'].$mask_img);
-    return $response->write($mask_img);
+    return $this->view->render($response, 'poster.html', [
+        'url' => $qiniu['bucket_url'].$mask_img,
+    ]);
+});
+
+$app->get('/stpro/pcmask', function ($request, $response, $args) {
+
 });
 
 

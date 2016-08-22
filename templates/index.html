@@ -1,174 +1,205 @@
 <!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>我为十力代颜</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="format-detection" content="telephone=no, email=no" />
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <link rel="stylesheet" href="css/main.css">
-    <script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
-    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta name="renderer" content="webkit" />
+    <title>天生爱玩 - 神游网</title>
+    <!--[if lte IE 9]>
+    <![endif]-->
+    <link rel="stylesheet" href="/css/aiwan.css" />
     <script>
-        $(document).ready(function(){
-            $.ajax({
-                type: "get",//提交请求方法
-                url: "http://aiwan.com/wx/jsconfig?url=http://aiwan.shenyou.tv/stpro/",//提交的地址
-                dataType: 'json',
-                success: function (msg) {
-                    wx.config({
-                        debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-                        appId: msg.data.appId, // 必填，公众号的唯一标识
-                        timestamp: msg.data.timestamp, // 必填，生成签名的时间戳
-                        nonceStr: msg.data.nonceStr, // 必填，生成签名的随机串
-                        signature: msg.data.signature,// 必填，签名，见附录1
-                        jsApiList: ['chooseImage','previewImage','uploadImage','downloadImage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-                    });
-
+        (function(){
+            var mobilecheck = function() {
+                if( navigator.userAgent.match(/Android/i)
+                        || navigator.userAgent.match(/webOS/i)
+                        || navigator.userAgent.match(/iPhone/i)
+                        || navigator.userAgent.match(/iPad/i)
+                        || navigator.userAgent.match(/iPod/i)
+                        || navigator.userAgent.match(/BlackBerry/i)
+                        || navigator.userAgent.match(/Windows Phone/i)
+                ){
+                    return true;
                 }
-            });
-
-
-        });
-    </script>
-    <style>
-        #clipArea {
-            margin: 0 20px;
-            height: 400px;
-        }
-
-        #view {
-            width: 106px;
-            height: 167px;
-            background-color: #fdfcf7!important;
-            border:  1px dashed #d4d2c7;
-            background: url("img/add.jpg");
-            border-radius: 5px;
-        }
-        .photo-clip-area{
-            background: url("img/getMask.png") 100% 100%;
-            border: 1px solid rgb(221, 221, 221);
-        }
-    </style>
-</head>
-<body ontouchstart="">
-<section id="alert">
-    <div id="clipArea"></div>
-    <div class="btn_edit" style="position: relative;">
-        <input type="file" id="file" value="重新上传">
-        <div class="file_bg">重新上传</div>
-    </div>
-
-    <button id="clipBtn"  class="btn_edit">提交</button>
-    <button id="btn_close"  class="btn_edit">关闭</button>
-</section>
-
-
-<section id="main">
-    <div class="main_content">
-        <div class="title"><i class="num">1</i>请上传人物照片</div>
-        <div id="view"></div>
-        <input type="hidden" value="" id="img_src">
-        <div class="title"><i class="num">2</i>请选择文案颜色</div>
-        <div class="colors">
-            <span>
-                <input type="radio" name="color" class="color" checked value="red">
-                <b class="red"></b>
-            </span>
-            <span>
-                <input type="radio" name="color" class="color"  value="orange">
-                <b class="orange"></b>
-            </span>
-            <span>
-                <input type="radio" name="color" class="color"  value="yellow">
-                <b class="yellow"></b>
-            </span>
-            <span>
-                <input type="radio" name="color" class="color"  value="green">
-                <b class="green"></b>
-            </span>
-            <span>
-                <input type="radio" name="color" class="color"  value="cyan">
-                <b class="cyan"></b>
-            </span>
-            <span>
-                <input type="radio" name="color" class="color"  value="blue">
-                <b class="blue"></b>
-            </span>
-            <span>
-                <input type="radio" name="color" class="color"  value="purple">
-                <b class="purple"></b>
-            </span>
-        </div>
-        <div class="title"><i class="num">3</i>请输入人物描述</div>
-        <div class="description">
-            <input type="text" placeholder="能">
-            <input type="text" placeholder="能">
-        </div>
-    </div>
-
-
-</section>
-<div class="create_area">
-    <input type="submit" class="btn_create" value="生成海报">
-</div>
-
-
-
-
-<script src="js/iscroll-zoom.js"></script>
-<script src="js/hammer.js"></script>
-<script src="js/lrz.all.bundle.js"></script>
-<script src="js/jquery.photoClip.js"></script>
-<script>
-    //document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
-    var clipArea = new bjj.PhotoClip("#clipArea", {
-        size: [212, 334],
-        outputSize: [530, 845],
-        file: "#file",
-        view: "#view",
-        ok: "#clipBtn",
-        loadStart: function() {
-            console.log("照片读取中");
-        },
-        loadComplete: function() {
-            console.log("照片读取完成");
-        },
-        clipFinish: function(dataURL) {
-            $("#img_src").val(dataURL);
-        }
-    });
-    //clipArea.destroy();
-</script>
-<script type="text/javascript">
-    $("#view").click(function(){
-        $("#file").trigger("click");
-        $("#alert").fadeIn();
-    });
-    $("#btn_close").click(function(){
-        $("#alert").fadeOut();
-    });
-    $("#clipBtn").click(function(){
-        $("#alert").fadeOut();
-    });
-    $(".btn_create").click(function(){
-        var img = $("#img_src").val();
-        var color = $(".colors input:checked").val();
-        var description1 = $(".description input:first-of-type").val();
-        var description2 = $(".description input:nth-of-type(2)").val();
-        $.ajax({
-            type: "post",//提交请求方法
-            url: "http://aiwan.com/stpro/mask",//提交的地址
-            data: {'img':img, 'color':color, 'description1':description1, 'description2':description2},
-            dataType: 'json',
-            success: function (msg) {
-                alert(msg);
+                else {
+                    return false;
+                }
             }
-        });
-    });
-</script>
+            if( mobilecheck() ) {
+                // window.location.href = 'http://aiwan.shenyou.tv/m.html';
+            }
+// if (!mobilecheck()) {
+//   window.location.href = 'http://aiwan.shenyou.tv/';
+// } else if (!isWechat()) {
+//  // window.location.href = 'http://aiwan.shenyou.tv/proudm.html';
+// }
 
+        })();
+    </script>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?d991a7bf627e51f201bcab1a75741be5";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+</head>
+<body>
+<div class="top_nav">
+    <div class="username hidden">
+        <i></i>
+    </div>
+    <div class="account" style="width: 143px;">
+        <div class="item">
+            <a href="/proud/logout.php">切换账号</a>
+        </div>
+    </div>
+    <a class="btn download disabled" href="javascript:;">下载为图片</a>
+    <a class="btn weibo disabled" href="javascript:;">发送到新浪微博</a>
+    <a class="btn share disabled" href="javascript:;">分享到朋友圈</a>
+    <div class="weixin_share">
+        <p>微信扫描二维码</p>
+        <div id="qrcode"></div>
+        <i><b></b></i>
+    </div>
+</div>
+<div class="wrapper">
+    <div class="preview_area" id="canvas">
+        <div class="preview_area_w">
+            <div class="img_bg"></div>
+            <a class="first_btn btn disabled" data-type="2" href="javascript:;">生成图片</a>
+            <i></i>
+            <div class="post_img_outer hidden">
+                <img id="post_img" />
+            </div>
+            <div class="loading-bar hidden">
+                <span class="loading-icon"></span>
+                <span class="loading-text">图片生成中</span>
+            </div>
+            <div class="update_tip">
+                <p>您刚刚编辑了图片内容<br />请点击下方按钮更新图片</p>
+                <a class="close" href="javascript:;">&nbsp;</a>
+                <a class="update_btn btn" data-type="2" href="javascript:;">更新图片</a>
+            </div>
+        </div>
+    </div>
+    <div class="edit_area">
+        <span class="arrow"></span>
+        <div class="edit_area_w">
+            <form id="upload_form" method="post" target="callback_frame" enctype="multipart/form-data" action="">
+                <h3> <i class="number number1"></i> <span>请上传人物照片</span> </h3>
+                <div class="app_img">
+                    <label id="upload_bg" for="app_upload"> <input type="file" id="app_upload" name="image" accept="image/*" /></label>
+                    <span class="reload"> <label for="app_upload"> <img src="/img/reload.png" />换一张</label> </span>
+                    <span class="edit"> <label> <img src="/img/edit.png" />调整图片</label> </span>
+                </div>
+            </form>
+            <form id="main_form" method="post" target="callback_frame" enctype="multipart/form-data"  action="http://aiwan.shenyou.tv/getInfo.php">
+
+                <h3><i class="number number2"></i> <span>请输入人物描述</span></h3>
+                <div class="app_dec">
+                    <div class="dec_type" style="display:none;">
+                        <span><input type="radio" name="style" id="type_a" checked="" value="1" /> <b>能…还能…</b></span>
+                        <span><input type="radio" name="style" id="type_b" value="2" /> <b>会…还会…</b></span>
+                    </div>
+                    <div class="story">
+                        <div class="dec_input twoline">
+                            <input type="text" value="爱"  name="word[]" class="dec_text default" maxlength="10" autocomplete="off" />
+                            <input type="text" value="爱"  name="word[]" class="dec_text default" maxlength="10" autocomplete="off" />
+                        </div>
+                        <div class="dec_input">
+                            <input type="text" value="爱" name="word[]" class="dec_text default" autocomplete="off" />
+                        </div>
+                        <div class="dec_input twoline">
+                            <input type="text"  value="玩" name="word[]" class="dec_text default" maxlength="10" autocomplete="off" />
+                            <input type="text"  value="玩" name="word[]" class="dec_text default" maxlength="10" autocomplete="off" />
+                        </div>
+                        <div class="dec_input">
+                            <input type="text"   value="玩" name="word[]" class="dec_text default" autocomplete="off" />
+                        </div>
+                        <div class="dec_input">
+                            <input type="text"  value="TA不是" name="word[]" maxlength="10" class="dec_text default" autocomplete="off" />
+                        </div>
+                        <div class="dec_input">
+                            <input type="text"   value="TA只是天生爱玩！" maxlength="10" name="word[]" class="dec_text default" autocomplete="off" />
+                        </div>
+                        <div class="dec_input" style="display:none;">
+                            <input type="text"   value="玩" name="word[]" class="dec_text default" autocomplete="off" />
+                        </div>
+                        <div class="dec_input name" >
+                            <div class="gender">
+                                他
+                            </div>
+                            <input type="text" name="identity" class="dec_text" autocomplete="off" />
+                            <div class="gender_list">
+                                <div>
+                                    <input type="radio" name="gender" id="boy" checked="" value="1" />
+                                    <b>他</b>
+                                </div>
+                                <div>
+                                    <input type="radio" name="gender" id="girl" value="2" />
+                                    <b>她</b>
+                                </div>
+                                <div>
+                                    <input type="radio" name="gender" id="obj" value="3" />
+                                    <b>我</b>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <i>每行最多16个字</i>
+                </div>
+                <input type="hidden" id="image_field" name="image" />
+                <input type="hidden" name="source" value = "pc" />
+            </form>
+        </div>
+    </div>
+    <div class="crop_window hidden" unselectable="on">
+        <div class="crop_tit">
+            照片裁剪
+        </div>
+        <div class="crop_main">
+            <canvas id="crop_workplace"></canvas>
+            <img class="sample" src="/img/sample.png" />
+            <div class="zoom">
+                <img src="/img/zoom_out.png" id="zoom_out" />
+                <div class="zoom_bar" id="zoom">
+                    <div class="zoom_bar_blue"></div>
+                    <div id="zoom_handle"></div>
+                </div>
+                <img src="/img/zoom_in.png" id="zoom_in" />
+            </div>
+            <div class="colors" style="display:none;">
+                <span> <input type="radio" name="color" class="color" checked="" value="1" /> <b class="red"></b> </span>
+                <span> <input type="radio" name="color" class="color" value="2" /> <b class="orange"></b> </span>
+                <span> <input type="radio" name="color" class="color" value="3" /> <b class="yellow"></b> </span>
+                <span> <input type="radio" name="color" class="color" value="4" /> <b class="green"></b> </span>
+                <span> <input type="radio" name="color" class="color" value="5" /> <b class="cyan"></b> </span>
+                <span> <input type="radio" name="color" class="color" value="6" /> <b class="blue"></b> </span>
+                <span> <input type="radio" name="color" class="color" value="7" /> <b class="purple"></b> </span>
+            </div>
+            <div class="loading">
+                <img id="loading_icon" src="/img/loading.png" />
+                <p>加载中，请稍等…</p>
+            </div>
+            <div class="too_small">
+                <p> 您选择的图片过小，请选择分辨率 <br />不低于 470px &times; 768px 的图片</p>
+            </div>
+        </div>
+        <div class="crop_btn">
+            <button id="crop_cancel" style="float:right">取消</button>
+            <button id="crop_confirm" style="float:right">确认</button>
+            <button id="crop_reload"> <label for="app_upload">换一张</label> </button>
+        </div>
+    </div>
+</div>
+<div class="gray_layer hidden"></div>
+<canvas id="hidden_workplace" class="hidden"></canvas>
+<canvas id="gray_workplace" class="hidden"></canvas>
+<iframe id="callback_frame" name="callback_frame" class="hidden"></iframe>
+<script src="/js/main.js"></script>
 </body>
 </html>

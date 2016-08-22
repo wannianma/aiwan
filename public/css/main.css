@@ -187,4 +187,30 @@ body {
     width: 100%;
     z-index: 1;
 }
-
+.share_wechat,.share_weibo,.btn_backedit{
+    display: inline-block;
+    width: 49%;
+    background: #c71421;
+    padding: 10px 0;
+    color: #ffffff;
+    font-size: 16px;
+    border-radius: 6px;
+    text-align: center;
+    margin-top: 10px;
+}
+.share_wechat{
+    float: left;
+}
+.share_weibo{
+    float: right;
+}
+.btn_backedit{
+    margin-left: 27%;
+}
+.share_wechat i,.share_weibo i{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    vertical-align: bottom;
+    margin-right: 5px;
+}
