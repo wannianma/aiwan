@@ -45,9 +45,15 @@ $app->post('/stpro/mask', function ($request, $response, $args) {
     }
     // 对图片进行水印处理
     $mask_img = \Tools::getMaskOfImg($qiniu, $key, 'green', $word1, $word2, 'hello, word');
-    $this->logger->info($qiniu['bucket_url'].$mask_img);
+    $img_url = $qiniu['bucket_url'].$mask_img;
+    $this->logger->info($img_url);
+    return $response->withStatus(302)->withHeader('Location', '/stpro/poster?url='.base64_encode($img_url));
+});
+
+$app->get('/stpro/poster', function($request, $response, $args) {
+    $img_url = $request->getParam('url');
     return $this->view->render($response, 'poster.html', [
-        'url' => $qiniu['bucket_url'].$mask_img,
+        'url' => base64_decode($img_url) ,
     ]);
 });
 
