@@ -19,6 +19,10 @@ $app->get('/wx/jsconfig', function ($request, $response, $args) {
     return $response->withJson($signPackage);
 });
 
+$app->post('/stpro/mask2', function ($request, $response, $args) {
+
+});
+
 $app->post('/stpro/mask', function ($request, $response, $args) {
     $img_base64 = $request->getParam('image');
     $img = explode(',', $img_base64);
