@@ -45,3 +45,9 @@ $container['notFoundHandler'] = function ($c) {
             ->write('<h1>Page not found</h1>');
     };
 };
+
+// Water Image
+$container['Image'] = function ($c) {
+    $image = new Intervention\Image\ImageManager(array('driver' => 'gd'));
+    return $image;
+};

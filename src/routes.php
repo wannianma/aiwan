@@ -8,7 +8,7 @@ use Qiniu\Storage\UploadManager;
 
 $app->get('/stpro', function ($request, $response, $args) {
     $this->logger->info("Aiwan '/stpro/' route");
-    return $this->view->render($response, 'index.html', []);
+    return $this->view->render($response, 'mindex.html', []);
 });
 
 $app->get('/wx/jsconfig', function ($request, $response, $args) {
@@ -20,7 +20,45 @@ $app->get('/wx/jsconfig', function ($request, $response, $args) {
 });
 
 $app->post('/stpro/mask2', function ($request, $response, $args) {
-
+    $img_base64 = $request->getParam('image');
+    $img = explode(',', $img_base64);
+    if (count($img) < 2) {
+        return $response->write("data is not allowed");
+    }
+    $img_data = base64_decode($img[1]);
+    $color = $request->getParam('color', 'red');
+    $word1 = $request->getParam('description1', '');
+    $word2 = $request->getParam('description2', '');
+    $img_origin = $this->Image->make($img_data);
+    $font_func = function($font) {
+        $font->file("../public/font/msyhbd.ttf");
+        $font->size(48);
+        $font->align('center');
+        $font->valign('top');
+        $font->angle(0);
+    };
+    $img_origin->text($word1, 150, 100, $font_func);
+    $img_origin->text($word2, 250, 250, $font_func);
+    $img_origin->insert('../public/img/aiwan_green.png');
+    # 添加图片水印
+    #$img_origin->mask('../public/img/aiwan.png',true);
+    # 将图片上传到七牛
+    $qiniu = $this->get('settings')['qiniu'];
+    $accessKey = $qiniu['access_key'];
+    $secretKey = $qiniu['secret_key'];
+    $auth = new Auth($accessKey, $secretKey);
+    $bucket = $qiniu['bucket'];
+    $token = $auth->uploadToken($bucket);
+    // 上传后key值
+    $key = $qiniu['upload_pre'] . date('ymdhi',time()).mt_rand(100, 1000).'.jpg';
+    $uploadMgr = new UploadManager();
+    list($ret, $err) = $uploadMgr->put($token, $key, $img_origin->stream('jpg', 100));
+    if ($err != null) {
+        var_dump($err);
+    }
+    $img_url = $img_url = $qiniu['bucket_url'].$key;
+    $this->logger->info($img_url);
+    return $response->withStatus(302)->withHeader('Location', '/stpro/poster?url='.base64_encode($img_url));
 });
 
 $app->post('/stpro/mask', function ($request, $response, $args) {
