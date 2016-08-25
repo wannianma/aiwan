@@ -6,8 +6,13 @@ use Qiniu\Processing\PersistentFop;
 use Qiniu\Storage\UploadManager;
 // Routes
 
+$app->get('/', function ($request, $response, $args) {
+    $this->logger->info("Aiwan '/'");
+    return $this->view->render($response, 'index.html', []);
+});
+
 $app->get('/stpro', function ($request, $response, $args) {
-    $this->logger->info("Aiwan '/stpro/' route");
+    $this->logger->info("Aiwan '/stpro/'");
     return $this->view->render($response, 'mindex.html', []);
 });
 
