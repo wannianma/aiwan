@@ -5,5 +5,14 @@
         "qiniu/php-sdk": "^7.0",
         "slim/twig-view": "^2.1",
         "intervention/image": "^2.3"
+    },
+    "config": {
+        "preferred-install": "dist"
+    },
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://packagist.phpcomposer.com"
+        }
     }
 }
