@@ -15,7 +15,7 @@
         $(document).ready(function(){
             $.ajax({
                 type: "get",//提交请求方法
-                url: "http://aiwan.com/wx/jsconfig?url=http://aiwan.shenyou.tv/stpro/",//提交的地址
+                url: "/wx/jsconfig?url=http://aiwan.shenyou.tv/stpro/",//提交的地址
                 dataType: 'json',
                 success: function (msg) {
                     wx.config({
@@ -66,7 +66,7 @@
 </section>
 
 
-<form name="form1" id="form1" action="http://aiwan.com/stpro/mask2" method="post">
+<form name="form1" id="form1" action="/stpro/mask2" method="post">
     <section id="main">
 
         <div class="main_content">
