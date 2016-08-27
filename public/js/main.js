@@ -54,8 +54,8 @@
         return JSON.parse(V.contentWindow.document.body.innerText)
     }, Ht = function () {
         var t = St();
-        if (0 === t.code)c = new Image, c.src = t.data.image, c.onload = Ot; else {
-            if (1001 === t.errInfo.code)return void(location.href = "http://piaoliang.smartisan.com/");
+        if (0 === t.code)c = new Image, c.setAttribute('crossOrigin', 'anonymous'), c.src = t.data.image, c.onload = Ot; else {
+            if (1001 === t.errInfo.code)return void(location.href = "http://aiwan.shenyou.tv/");
             alert(t.errInfo.msg), Pt()
         }
     }, $t = function () {
