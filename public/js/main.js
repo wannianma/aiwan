@@ -5,7 +5,8 @@
         img: null,
         dec: [],
         color: null,
-        gender: 1
+        gender: 1,
+        source: 'pc',
     }, pt = !1, vt = [["能", "能", "能", "能", "能", "能", "能", "能", "还能", ""], ["会", "会", "会", "会", "会", "会", "会", "会", "还会", ""]], wt = ["能", "能", "能", "能", "能", "能", "能", "能", "还能"], yt = [], _t = [], Ct = {}, Et = T.getContext("2d"), It = L.getContext("2d"), bt = b.getContext("2d"), Bt = {
         image: null,
         color: null,
@@ -142,27 +143,18 @@
             for (var o = 0; 10 > o; o++)ft.dec[o] = t[o];
             console.log(ft.dec);
             var n, a = new XMLHttpRequest;
-            n = "style=" + ft.style + "&word[]=" + encodeURIComponent(ft.dec[0]) + "&word[]=" + encodeURIComponent(ft.dec[1]) + "&word[]=" + encodeURIComponent(ft.dec[2]) + "&word[]=" + encodeURIComponent(ft.dec[3]) + "&word[]=" + encodeURIComponent(ft.dec[4]) + "&word[]=" + encodeURIComponent(ft.dec[5]) + "&word[]=" + encodeURIComponent(ft.dec[6]) + "&word[]=" + encodeURIComponent(ft.dec[7]) + "&word[]=" + encodeURIComponent(ft.dec[8]) + "&identity=" + encodeURIComponent(ft.dec[9]) + "&gender=" + ft.gender + "&color=" + ft.color + "&image=" + encodeURIComponent(ft.img), a.onload = function () {
+            n = "style=" + ft.style + "&source=" + ft.source + "&word[]=" + encodeURIComponent(ft.dec[0]) + "&word[]=" + encodeURIComponent(ft.dec[1]) + "&word[]=" + encodeURIComponent(ft.dec[2]) + "&word[]=" + encodeURIComponent(ft.dec[3]) + "&word[]=" + encodeURIComponent(ft.dec[4]) + "&word[]=" + encodeURIComponent(ft.dec[5]) + "&word[]=" + encodeURIComponent(ft.dec[6]) + "&word[]=" + encodeURIComponent(ft.dec[7]) + "&word[]=" + encodeURIComponent(ft.dec[8]) + "&identity=" + encodeURIComponent(ft.dec[9]) + "&gender=" + ft.gender + "&color=" + ft.color + "&image=" + encodeURIComponent(ft.img), a.onload = function () {
                 var t = JSON.parse(a.responseText);
                 Wt(t)
-            }, a.open("post", "http://piaoliang.smartisan.com/proud/getInfo.php", !0), a.setRequestHeader("Content-type", "application/x-www-form-urlencoded"), a.send(n)
+            }, a.open("post", "http://aiwan.com/stpro/info", !0), a.setRequestHeader("Content-type", "application/x-www-form-urlencoded"), a.send(n)
         }
-    }, Zt = function () {
-        var t = "http://piaoliang.smartisan.com/proud/get_user_info.php", e = new XMLHttpRequest;
-        e.onload = function (t) {
-            var o = JSON.parse(e.responseText);
-            if (0 === o.code)p.innerHTML = o.data.name + p.innerHTML, Rt(p, "hidden"); else {
-                if (1001 === o.errInfo.code)return void(location.href = "http://piaoliang.smartisan.com/");
-                alert(o.errInfo.msg)
-            }
-        }, e.open("get", t, !0), e.send()
     }, qt = function (t) {
         for (var e, o, n = [], e = 0; 7 > e; e++)if (j[e].checked) {
             o = e + 1;
             break
         }
         for (e = 0; 8 > e; e++)n[e] = /^能\s*$/.test(A[e].value) || /^会\s*$/.test(A[e].value) || /^\s*$/.test(A[e].value) ? "" : A[e].value;
-        n[8] = /^还能\s*$/.test(A[8].value) || /^还会\s*$/.test(A[8].value) || /^\s*$/.test(A[8].value) ? "" : A[8].value, n[9] = /^\s*$/.test(A[9].value) ? "" : A[9].value, m = new Image, m.src = "http://piaoliang.smartisan.com/proud/getMask.php?color=" + o + "&word[]=" + encodeURIComponent(n[0]) + "&word[]=" + encodeURIComponent(n[1]) + "&word[]=" + encodeURIComponent(n[2]) + "&word[]=" + encodeURIComponent(n[3]) + "&word[]=" + encodeURIComponent(n[4]) + "&word[]=" + encodeURIComponent(n[5]) + "&word[]=" + encodeURIComponent(n[6]) + "&word[]=" + encodeURIComponent(n[7]) + "&word[]=" + encodeURIComponent(n[8]) + "&gender=" + gt + "&identity=" + encodeURIComponent(n[9]), m.onload = t
+        n[8] = /^还能\s*$/.test(A[8].value) || /^还会\s*$/.test(A[8].value) || /^\s*$/.test(A[8].value) ? "" : A[8].value, n[9] = /^\s*$/.test(A[9].value) ? "" : A[9].value, m = new Image, m.src = "http://aiwan.com/stpro/getMask?color=" + o + "&word[]=" + encodeURIComponent(n[0]) + "&word[]=" + encodeURIComponent(n[1]) + "&word[]=" + encodeURIComponent(n[2]) + "&word[]=" + encodeURIComponent(n[3]) + "&word[]=" + encodeURIComponent(n[4]) + "&word[]=" + encodeURIComponent(n[5]) + "&word[]=" + encodeURIComponent(n[6]) + "&word[]=" + encodeURIComponent(n[7]) + "&word[]=" + encodeURIComponent(n[8]) + "&gender=" + gt + "&identity=" + encodeURIComponent(n[9]), m.onload = t
     }, Vt = function () {
         if (d !== h) {
             var t = ht / 236 * (h - d) + d, e = t * c.width, m = t * c.height, f = 244 - (244 - a) * m / n, p = 267 - (267 - r) * e / o;
@@ -249,7 +241,7 @@
             }
         }(t)
     }, ee = function () {
-        Zt(), te(), At && (ut.src = ut.src.substr(0, ut.src.length - 3) + "gif"), y.style.top = ""
+        te(), At && (ut.src = ut.src.substr(0, ut.src.length - 3) + "gif"), y.style.top = ""
     };
     t.init = ee, t.previousCrop = Bt
 }(window), init();

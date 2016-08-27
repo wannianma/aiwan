@@ -66,7 +66,7 @@
 </section>
 
 
-<form name="form1" id="form1" action="/stpro/mask2" method="post">
+<form name="form1" id="form1" action="/stpro/info" method="post">
     <section id="main">
 
         <div class="main_content">
@@ -109,6 +109,7 @@
                 <input type="text" name='description1' placeholder="能">
                 <input type="text" name='description2' placeholder="能">
             </div>
+            <input type="hidden" name="source" value="mobile">
         </div>
 
 
@@ -129,7 +130,7 @@
     //document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
     var clipArea = new bjj.PhotoClip("#clipArea", {
         size: [212, 334],
-        outputSize: [530, 845],
+        outputSize: [990, 1620],
         file: "#file",
         view: "#view",
         ok: "#clipBtn",

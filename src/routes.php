@@ -16,6 +16,12 @@ $app->get('/stpro', function ($request, $response, $args) {
     return $this->view->render($response, 'mindex.html', []);
 });
 
+$app->get('/stpro/getMask', function ($request, $response, $args) {
+    $this->logger->info("aiwan '/stpro/getMask' route");
+    $img_data = @file_get_contents('../public/img/getMask.png', 'r');
+    return $response->withHeader('Content-Type','image/png')->write($img_data);
+});
+
 $app->get('/wx/jsconfig', function ($request, $response, $args) {
     $this->logger->info("aiwan '/wx/jsconfig' route");
     $url = $request->getQueryParams('url', '');
@@ -24,16 +30,19 @@ $app->get('/wx/jsconfig', function ($request, $response, $args) {
     return $response->withJson($signPackage);
 });
 
-$app->post('/stpro/mask2', function ($request, $response, $args) {
+$app->post('/stpro/info', function ($request, $response, $args) {
+    $qiniu = $this->get('settings')['qiniu'];
+    $source = $request->getParam('source', 'mobile');
     $img_base64 = $request->getParam('image');
     $img = explode(',', $img_base64);
     if (count($img) < 2) {
         return $response->write("data is not allowed");
     }
     $img_data = base64_decode($img[1]);
+    file_put_contents('d:/m.jpg', $img_data);
     $color = $request->getParam('color', 'red');
-    $word1 = $request->getParam('description1', '');
-    $word2 = $request->getParam('description2', '');
+    $word1 = $request->getParam('description1', 'Hello');
+    $word2 = $request->getParam('description2', 'World');
     $img_origin = $this->Image->make($img_data);
     $font_func = function($font) {
         $font->file("../public/font/msyhbd.ttf");
@@ -42,13 +51,14 @@ $app->post('/stpro/mask2', function ($request, $response, $args) {
         $font->valign('top');
         $font->angle(0);
     };
+    # 更改大小
+    $img_origin->resize($qiniu['water_img_size'][0], $qiniu['water_img_size'][1]);
+    # 添加文字水印
     $img_origin->text($word1, 150, 100, $font_func);
     $img_origin->text($word2, 250, 250, $font_func);
-    $img_origin->insert('../public/img/aiwan_green.png');
     # 添加图片水印
-    #$img_origin->mask('../public/img/aiwan.png',true);
+    $img_origin->insert('../public/img/aiwan.png');
     # 将图片上传到七牛
-    $qiniu = $this->get('settings')['qiniu'];
     $accessKey = $qiniu['access_key'];
     $secretKey = $qiniu['secret_key'];
     $auth = new Auth($accessKey, $secretKey);
@@ -63,7 +73,22 @@ $app->post('/stpro/mask2', function ($request, $response, $args) {
     }
     $img_url = $img_url = $qiniu['bucket_url'].$key;
     $this->logger->info($img_url);
-    return $response->withStatus(302)->withHeader('Location', '/stpro/poster?url='.base64_encode($img_url));
+    if ($source == 'mobile') {
+        return $response->withStatus(302)->withHeader('Location', '/stpro/poster?url='.base64_encode($img_url));
+    } else {
+        // {"code":0,"data":{"image":"http:\/\/piaoliang.smartisanos.cn\/img\/20160827\/d\/dffe4c4e629bb4ba6d86ae02bf4ed7ea_1472282268.jpg","weiboUrl":"http:\/\/piaoliang.smartisanos.cn\/html\/9\/1\/3\/913c1699fa5eb3b3b2197b91e6afc942.html","weixinUrl":"http:\/\/piaoliang.smartisanos.cn\/html\/b\/3\/2\/b3243fe60a34652fc94a358d6ef725fd.html","download":"http:\/\/piaoliang.smartisan.com\/download\/20160827\/d\/dffe4c4e629bb4ba6d86ae02bf4ed7ea_1472282268.jpg"},"errInfo":[]}
+        $res_data = array(
+            'code' => 0,
+            'data' => [
+                'image' => $img_url,
+                'weiboUrl' => 'http://aiwan.com/stpro/poster?url='.base64_encode($img_url),
+                'weixinUrl' => 'http://aiwan.com/stpro/poster?url='.base64_encode($img_url),
+            ],
+            'errInfo' => []
+        );
+
+        return $response->withJson($res_data);
+    }
 });
 
 $app->post('/stpro/mask', function ($request, $response, $args) {
