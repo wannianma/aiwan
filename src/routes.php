@@ -19,7 +19,7 @@ $app->get('/stpro', function ($request, $response, $args) {
 $app->get('/stpro/getMask', function ($request, $response, $args) {
     $this->logger->info("aiwan '/stpro/getMask' route");
     $img_data = @file_get_contents('../public/img/getMask.png', 'r');
-    return $response->withHeader('Content-Type','image/png')->withHeader('Access-Control-Allow-Origin','*')->write($img_data);
+    return $response->withHeader('Content-Type','image/png')->write($img_data);
 });
 
 $app->get('/wx/jsconfig', function ($request, $response, $args) {
