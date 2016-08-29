@@ -82,6 +82,7 @@ $app->post('/stpro/info', function ($request, $response, $args) {
                 'image' => $img_url,
                 'weiboUrl' => 'http://aiwan.com/stpro/poster?url='.base64_encode($img_url),
                 'weixinUrl' => 'http://aiwan.com/stpro/poster?url='.base64_encode($img_url),
+                'download' => $img_url,
             ],
             'errInfo' => []
         );
