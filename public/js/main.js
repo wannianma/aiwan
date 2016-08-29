@@ -146,7 +146,7 @@
             n = "style=" + ft.style + "&source=" + ft.source + "&word[]=" + encodeURIComponent(ft.dec[0]) + "&word[]=" + encodeURIComponent(ft.dec[1]) + "&word[]=" + encodeURIComponent(ft.dec[2]) + "&word[]=" + encodeURIComponent(ft.dec[3]) + "&word[]=" + encodeURIComponent(ft.dec[4]) + "&word[]=" + encodeURIComponent(ft.dec[5]) + "&word[]=" + encodeURIComponent(ft.dec[6]) + "&word[]=" + encodeURIComponent(ft.dec[7]) + "&word[]=" + encodeURIComponent(ft.dec[8]) + "&identity=" + encodeURIComponent(ft.dec[9]) + "&gender=" + ft.gender + "&color=" + ft.color + "&image=" + encodeURIComponent(ft.img), a.onload = function () {
                 var t = JSON.parse(a.responseText);
                 Wt(t)
-            }, a.open("post", "http://aiwan.com/stpro/info", !0), a.setRequestHeader("Content-type", "application/x-www-form-urlencoded"), a.send(n)
+            }, a.open("post", "/stpro/info", !0), a.setRequestHeader("Content-type", "application/x-www-form-urlencoded"), a.send(n)
         }
     }, qt = function (t) {
         for (var e, o, n = [], e = 0; 7 > e; e++)if (j[e].checked) {
