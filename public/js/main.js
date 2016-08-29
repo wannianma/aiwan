@@ -154,7 +154,7 @@
             break
         }
         for (e = 0; 8 > e; e++)n[e] = /^能\s*$/.test(A[e].value) || /^会\s*$/.test(A[e].value) || /^\s*$/.test(A[e].value) ? "" : A[e].value;
-        n[8] = /^还能\s*$/.test(A[8].value) || /^还会\s*$/.test(A[8].value) || /^\s*$/.test(A[8].value) ? "" : A[8].value, n[9] = /^\s*$/.test(A[9].value) ? "" : A[9].value, m = new Image, m.src = "http://aiwan.com/stpro/getMask?color=" + o + "&word[]=" + encodeURIComponent(n[0]) + "&word[]=" + encodeURIComponent(n[1]) + "&word[]=" + encodeURIComponent(n[2]) + "&word[]=" + encodeURIComponent(n[3]) + "&word[]=" + encodeURIComponent(n[4]) + "&word[]=" + encodeURIComponent(n[5]) + "&word[]=" + encodeURIComponent(n[6]) + "&word[]=" + encodeURIComponent(n[7]) + "&word[]=" + encodeURIComponent(n[8]) + "&gender=" + gt + "&identity=" + encodeURIComponent(n[9]), m.onload = t
+        n[8] = /^还能\s*$/.test(A[8].value) || /^还会\s*$/.test(A[8].value) || /^\s*$/.test(A[8].value) ? "" : A[8].value, n[9] = /^\s*$/.test(A[9].value) ? "" : A[9].value, m = new Image, m.src = "/stpro/getMask?color=" + o + "&word[]=" + encodeURIComponent(n[0]) + "&word[]=" + encodeURIComponent(n[1]) + "&word[]=" + encodeURIComponent(n[2]) + "&word[]=" + encodeURIComponent(n[3]) + "&word[]=" + encodeURIComponent(n[4]) + "&word[]=" + encodeURIComponent(n[5]) + "&word[]=" + encodeURIComponent(n[6]) + "&word[]=" + encodeURIComponent(n[7]) + "&word[]=" + encodeURIComponent(n[8]) + "&gender=" + gt + "&identity=" + encodeURIComponent(n[9]), m.onload = t
     }, Vt = function () {
         if (d !== h) {
             var t = ht / 236 * (h - d) + d, e = t * c.width, m = t * c.height, f = 244 - (244 - a) * m / n, p = 267 - (267 - r) * e / o;
