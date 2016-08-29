@@ -39,7 +39,6 @@ $app->post('/stpro/info', function ($request, $response, $args) {
         return $response->write("data is not allowed");
     }
     $img_data = base64_decode($img[1]);
-    file_put_contents('d:/m.jpg', $img_data);
     $color = $request->getParam('color', 'red');
     $word1 = $request->getParam('description1', 'Hello');
     $word2 = $request->getParam('description2', 'World');
