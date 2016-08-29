@@ -2,3 +2,7 @@
 logs/*
 composer.lock
 vendor
+stpro
+php_errors.log
+public/favicon.ico
+
