@@ -56,7 +56,7 @@ $app->post('/stpro/info', function ($request, $response, $args) {
     $img_origin->text($word1, 150, 100, $font_func);
     $img_origin->text($word2, 250, 250, $font_func);
     # 添加图片水印
-    $img_origin->insert('../public/img/aiwan.png');
+    $img_origin->insert('../public/img/666.png');
     # 将图片上传到七牛
     $accessKey = $qiniu['access_key'];
     $secretKey = $qiniu['secret_key'];
