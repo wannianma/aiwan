@@ -1054,11 +1054,11 @@ input {
 }
 
 .dec_input.name:after {
-	content: "就是TA";
+	content: "就是";
 	display: block;
 	position: absolute;
 	top: 0;
-	left: -70px;
+	left: -45px;
 	font-size: 16px;
 	height: 32px;
 	line-height: 32px;
@@ -1071,7 +1071,7 @@ input {
 }
 
 .dec_input.name .gender {
-	width: 44px;
+	width: 60px;
 	height: 33px;
 	line-height: 31px;
 	font-size: 16px;

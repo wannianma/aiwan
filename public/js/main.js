@@ -106,20 +106,18 @@
             if (ft.img !== O.value)return !0;
             if (ft.color !== mt)return !0;
             if (ft.gender !== gt)return !0;
-            for (var t = 0; 8 > t; t++)if (!(ft.dec[t] === A[t].value || (/^能\s*$/.test(ft.dec[t]) || /^会\s*$/.test(ft.dec[t]) || /^\s*$/.test(ft.dec[t])) && (/^能\s*$/.test(A[t].value) || /^会\s*$/.test(A[t].value) || /^\s*$/.test(A[t].value))))return !0;
-            return (ft.dec[8] === A[8].value || (/^还能\s*$/.test(ft.dec[8]) || /^还会\s*$/.test(ft.dec[8]) || /^\s*$/.test(ft.dec[8])) && (/^还能\s*$/.test(A[8].value) || /^还会\s*$/.test(A[8].value) || /^\s*$/.test(A[8].value))) && (ft.dec[9] === A[9].value || /^\s*$/.test(ft.dec[9]) && /^\s*$/.test(A[9].value)) ? !1 : !0
+            for (var t = 0; 7 > t; t++)if (!(ft.dec[t] === A[t].value || (/^能\s*$/.test(ft.dec[t]) || /^会\s*$/.test(ft.dec[t]) || /^\s*$/.test(ft.dec[t])) && (/^能\s*$/.test(A[t].value) || /^会\s*$/.test(A[t].value) || /^\s*$/.test(A[t].value))))return !0;
         }
         return !1
     }, Yt = function () {
-        for (var t = 0; 8 > t; t++)/^能\s*$/.test(A[t].value) || /^会\s*$/.test(A[t].value) ? Dt(A[t], "default") : Rt(A[t], "default");
-        /^还能\s*$/.test(A[8].value) || /^还会\s*$/.test(A[8].value) ? Dt(A[8], "default") : Rt(A[8], "default");
-        for (var t = 0; 9 > t; t++)if (A[t].value.length > 18)return Dt(tt, "error"), Rt(M, "update"), Dt(N, "disabled"), Rt(X, "gogogo"), !1;
-        return A[9].value.length > 13 ? (Dt(tt, "error"), Rt(M, "update"), Dt(N, "disabled"), Rt(X, "gogogo"), !1) : (Rt(tt, "error"), O.value ? (Dt(M, "update"), Rt(N, "disabled"), zt() ? Dt(X, "gogogo") : Rt(X, "gogogo"), !0) : (Rt(M, "update"), Dt(N, "disabled"), Rt(X, "gogogo"), !1))
+        for (var t = 0; 6 > t; t++)/^能\s*$/.test(A[t].value) || /^会\s*$/.test(A[t].value) ? Dt(A[t], "default") : Rt(A[t], "default");
+        for (var t = 0; 6 > t; t++)if (A[t].value.length > 18)return Dt(tt, "error"), Rt(M, "update"), Dt(N, "disabled"), Rt(X, "gogogo"), !1;
+        return (Rt(tt, "error"), O.value ? (Dt(M, "update"), Rt(N, "disabled"), zt() ? Dt(X, "gogogo") : Rt(X, "gogogo"), !0) : (Rt(M, "update"), Dt(N, "disabled"), Rt(X, "gogogo"), !1))
     }, Jt = function (t) {
         H.src = t, Rt($, "hidden"), Rt(X, "gogogo"), pt = !0
     }, Wt = function (t) {
         var e, o;
-        if (Dt(F, "hidden"), Rt(dt, "start"), 0 === t.code)e = t.data.weixinUrl, o = "http://service.weibo.com/share/share.php?appkey=4126106794&title=" + encodeURIComponent("#漂亮得不像实力派# " + encodeURIComponent(t.data.weiboUrl)) + "&pic=" + encodeURIComponent(t.data.image), K.href = t.data.download, Rt(K, "disabled"), z.href = o, z.target = "_blank", Rt(z, "disabled"), W.innerHTML = "", new QRCode(W, {
+        if (Dt(F, "hidden"), Rt(dt, "start"), 0 === t.code)e = t.data.weixinUrl, o = "http://service.weibo.com/share/share.php?appkey=4126106794&title=" + encodeURIComponent("#为十力代言# " + encodeURIComponent(t.data.weiboUrl)) + "&pic=" + encodeURIComponent(t.data.image), K.href = t.data.download, Rt(K, "disabled"), z.href = o, z.target = "_blank", Rt(z, "disabled"), W.innerHTML = "", new QRCode(W, {
             text: e,
             width: 120,
             height: 120,
@@ -127,20 +125,19 @@
         }), J.onclick = function (t) {
             Mt(Y, "show") ? Rt(Y, "show") : Dt(Y, "show"), t.stopPropagation()
         }, Rt(J, "disabled"), Jt(t.data.image); else {
-            if (1001 === t.errInfo.code)return void(location.href = "http://piaoliang.smartisan.com/");
+            if (1001 === t.errInfo.code)return void(location.href = "http://aiwan.shenyou.tv/");
             alert(t.errInfo.msg), Rt(N, "hidden")
         }
     }, jt = function () {
         var t = [], e = Yt();
         if (e) {
-            Rt(F, "hidden"), Dt(dt, "start"), Rt(X, "gogogo"), Dt(N, "hidden"), ft.img = O.value, ft.gender = gt, ft.style = D.checked ? 1 : 2;
+            Rt(F, "hidden"), Dt(dt, "start"), Rt(X, "gogogo"), Dt(N, "hidden"), ft.img = O.value, ft.gender = gt;
             for (var o = 0; 7 > o; o++)if (j[o].checked) {
                 ft.color = o + 1;
                 break
             }
-            for (var o = 0; 8 > o; o++)t[o] = /^能\s*$/.test(A[o].value) || /^会\s*$/.test(A[o].value) ? "" : A[o].value;
-            t[8] = /^还能\s*$/.test(A[8].value) || /^还会\s*$/.test(A[8].value) ? "" : A[8].value, t[9] = A[9].value;
-            for (var o = 0; 10 > o; o++)ft.dec[o] = t[o];
+            for (var o = 0; 7 > o; o++)t[o] = /^能\s*$/.test(A[o].value) || /^会\s*$/.test(A[o].value) ? "" : A[o].value;
+            for (var o = 0; 7 > o; o++)ft.dec[o] = t[o];
             console.log(ft.dec);
             var n, a = new XMLHttpRequest;
             n = "style=" + ft.style + "&source=" + ft.source + "&word[]=" + encodeURIComponent(ft.dec[0]) + "&word[]=" + encodeURIComponent(ft.dec[1]) + "&word[]=" + encodeURIComponent(ft.dec[2]) + "&word[]=" + encodeURIComponent(ft.dec[3]) + "&word[]=" + encodeURIComponent(ft.dec[4]) + "&word[]=" + encodeURIComponent(ft.dec[5]) + "&word[]=" + encodeURIComponent(ft.dec[6]) + "&word[]=" + encodeURIComponent(ft.dec[7]) + "&word[]=" + encodeURIComponent(ft.dec[8]) + "&identity=" + encodeURIComponent(ft.dec[9]) + "&gender=" + ft.gender + "&color=" + ft.color + "&image=" + encodeURIComponent(ft.img), a.onload = function () {
@@ -153,8 +150,8 @@
             o = e + 1;
             break
         }
-        for (e = 0; 8 > e; e++)n[e] = /^能\s*$/.test(A[e].value) || /^会\s*$/.test(A[e].value) || /^\s*$/.test(A[e].value) ? "" : A[e].value;
-        n[8] = /^还能\s*$/.test(A[8].value) || /^还会\s*$/.test(A[8].value) || /^\s*$/.test(A[8].value) ? "" : A[8].value, n[9] = /^\s*$/.test(A[9].value) ? "" : A[9].value, m = new Image, m.src = "/stpro/getMask?color=" + o + "&word[]=" + encodeURIComponent(n[0]) + "&word[]=" + encodeURIComponent(n[1]) + "&word[]=" + encodeURIComponent(n[2]) + "&word[]=" + encodeURIComponent(n[3]) + "&word[]=" + encodeURIComponent(n[4]) + "&word[]=" + encodeURIComponent(n[5]) + "&word[]=" + encodeURIComponent(n[6]) + "&word[]=" + encodeURIComponent(n[7]) + "&word[]=" + encodeURIComponent(n[8]) + "&gender=" + gt + "&identity=" + encodeURIComponent(n[9]), m.onload = t
+        for (e = 0; 6 > e; e++)n[e] = /^能\s*$/.test(A[e].value) || /^会\s*$/.test(A[e].value) || /^\s*$/.test(A[e].value) ? "" : A[e].value;
+        m = new Image, m.src = "/stpro/getMask?color=" + o + "&word[]=" + encodeURIComponent(n[0]) + "&word[]=" + encodeURIComponent(n[1]) + "&word[]=" + encodeURIComponent(n[2]) + "&word[]=" + encodeURIComponent(n[3]) + "&word[]=" + encodeURIComponent(n[4]) + "&word[]=" + encodeURIComponent(n[5]) + "&identity=" + encodeURIComponent(n[6]), m.onload = t
     }, Vt = function () {
         if (d !== h) {
             var t = ht / 236 * (h - d) + d, e = t * c.width, m = t * c.height, f = 244 - (244 - a) * m / n, p = 267 - (267 - r) * e / o;
@@ -193,13 +190,7 @@
             ht -= 10, ht = Math.max(ht, 0), Vt()
         }, st.onclick = function () {
             ht += 10, ht = Math.min(ht, 236), Vt()
-        }, D.onclick = function () {
-            for (var t = 0; 9 > t; t++)A[t].value = vt[0][t], wt[t] = vt[0][t];
-            Yt()
-        }, R.onclick = function () {
-            for (var t = 0; 9 > t; t++)A[t].value = vt[1][t], wt[t] = vt[1][t];
-            Yt()
-        }, Z.onclick = function (t) {
+        },  Z.onclick = function (t) {
             Mt(q, "on") ? Rt(q, "on") : Dt(q, "on"), t.stopPropagation()
         }, P.onclick = function (t) {
             Z.innerHTML = "他", gt = 1, Yt(), setTimeout(function () {
@@ -210,7 +201,7 @@
                 Rt(q, "on")
             }, 200), t.stopPropagation()
         }, U.onclick = function (t) {
-            Z.innerHTML = "它", gt = 3, Yt(), setTimeout(function () {
+            Z.innerHTML = "我", gt = 3, Yt(), setTimeout(function () {
                 Rt(q, "on")
             }, 200), t.stopPropagation()
         }, N.onclick = jt, Q.onclick = jt, Q.onmouseout = Kt(), lt.onclick = function () {
@@ -222,15 +213,9 @@
         }, at.onmousedown = function (t) {
             ht = Math.max(0, t.offsetX - 8), Vt()
         };
-        for (var t = 0; 10 > t; t++)!function (t) {
+        for (var t = 0; 6 > t; t++)!function (t) {
             A[t].onkeydown = function (e) {
                 yt[t] = e.keyCode, clearTimeout(_t[t]), _t[t] = setTimeout(Yt, 500)
-            }, A[t].onblur = function (e) {
-                8 > t && /^\s*$/.test(this.value) ? (this.value = D.checked ? "能" : "会", vt[0][t] = "能", vt[1][t] = "会") : 8 === t && /^\s*$/.test(this.value) && (this.value = D.checked ? "还能" : "还会", vt[0][t] = "还能", vt[1][t] = "还会"), Yt()
-            }, A[t].onkeyup = function (e) {
-                return 229 === yt[t] && 32 !== e.keyCode ? void clearTimeout(_t[t]) : (D.checked ? (8 > t ? "能" !== wt[t] && "" !== wt[t] && "" === this.value && (this.value = "能") : 8 === t && "还能" !== wt[t] && "还" !== wt[t] && "" !== wt[t] && "" === this.value && (this.value = "还能"), vt[0][t] = this.value, wt[t] = this.value, "能" === this.value.substr(0, 1) && 8 > t ? vt[1][t] = "会" + this.value.substr(1) : 8 > t ? vt[1][t] = this.value : "还能" === this.value.substr(0, 2) && 8 === t ? vt[1][t] = "还会" + this.value.substr(2) : 8 === t && (vt[1][t] = this.value)) : (8 > t ? "会" !== wt[t] && "" !== wt[t] && "" === this.value && (this.value = "会") : 8 === t && "还会" !== wt[t] && "还" !== wt[t] && "" !== wt[t] && "" === this.value && (this.value = "还会"), vt[1][t] = this.value, wt[t] = this.value, "会" === this.value.substr(0, 1) && 8 > t ? vt[0][t] = "能" + this.value.substr(1) : 8 > t ? vt[0][t] = this.value : "还会" === this.value.substr(0, 2) && 8 === t ? vt[0][t] = "还能" + this.value.substr(2) : 8 === t && (vt[0][t] = this.value)), void Yt())
-            }, A[t].onpaste = function () {
-                D.checked ? (vt[0][t] = this.value, "能" === this.value.substr(0, 1) && 8 > t ? vt[1][t] = "会" + this.value.substr(1) : 8 > t ? vt[1][t] = "会" + this.value : "还能" === this.value.substr(0, 2) && 8 === t ? vt[1][t] = "还会" + this.value.substr(2) : 8 === t && (vt[1][t] = "还会" + this.value)) : (vt[1][t] = this.value, "会" === this.value.substr(0, 1) && 8 > t ? vt[0][t] = "能" + this.value.substr(1) : 8 > t ? vt[0][t] = "能" + this.value : "还会" === this.value.substr(0, 2) && 8 === t ? vt[0][t] = "还能" + this.value.substr(2) : 8 === t && (vt[0][t] = "还能" + this.value)), Yt()
             }
         }(t);
         for (var t = 0; 7 > t; t++)!function (t) {

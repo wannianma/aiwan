@@ -12,7 +12,7 @@ $app->get('/', function ($request, $response, $args) {
 });
 
 $app->get('/stpro', function ($request, $response, $args) {
-    $this->logger->info("Aiwan '/stpro/'");
+    $this->logger->info("Aiwan '/stpro'");
     return $this->view->render($response, 'mindex.html', []);
 });
 
@@ -40,7 +40,7 @@ $app->post('/stpro/info', function ($request, $response, $args) {
     }
     $img_data = base64_decode($img[1]);
     $color = $request->getParam('color', 'red');
-    $word1 = $request->getParam('description1', 'Hello');
+    $word = $request->getParam('word', []);
     $word2 = $request->getParam('description2', 'World');
     $img_origin = $this->Image->make($img_data);
     $font_func = function($font) {
@@ -53,8 +53,11 @@ $app->post('/stpro/info', function ($request, $response, $args) {
     # 更改大小
     $img_origin->resize($qiniu['water_img_size'][0], $qiniu['water_img_size'][1]);
     # 添加文字水印
-    $img_origin->text($word1, 150, 100, $font_func);
-    $img_origin->text($word2, 250, 250, $font_func);
+    foreach($word as $key => $val) {
+        if ($val != '') {
+            $img_origin->text($val, 100, 50*$key+350, $font_func);
+        }
+    }
     # 添加图片水印
     $img_origin->insert('../public/img/666.png');
     # 将图片上传到七牛
