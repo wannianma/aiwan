@@ -41,12 +41,12 @@ $app->post('/stpro/info', function ($request, $response, $args) {
     $img_data = base64_decode($img[1]);
     $color = $request->getParam('color', 'red');
     $word = $request->getParam('word', []);
-    $word2 = $request->getParam('description2', 'World');
+    $identity = $request->getParam('identity', '');
     $img_origin = $this->Image->make($img_data);
     $font_func = function($font) {
-        $font->file("../public/font/msyhbd.ttf");
-        $font->size(48);
-        $font->align('center');
+        $font->file("../public/font/gbk.ttf");
+        $font->size(38);
+        $font->align('left');
         $font->valign('top');
         $font->angle(0);
     };
@@ -55,9 +55,11 @@ $app->post('/stpro/info', function ($request, $response, $args) {
     # 添加文字水印
     foreach($word as $key => $val) {
         if ($val != '') {
-            $img_origin->text($val, 100, 50*$key+350, $font_func);
+            $img_origin->text($val, 80, 70*$key+300, $font_func);
         }
     }
+    # 添加identity信息
+    $img_origin->text($identity, 670, 1310, $font_func);
     # 添加图片水印
     $img_origin->insert('../public/img/666.png');
     # 将图片上传到七牛

@@ -140,7 +140,7 @@
             for (var o = 0; 7 > o; o++)ft.dec[o] = t[o];
             console.log(ft.dec);
             var n, a = new XMLHttpRequest;
-            n = "style=" + ft.style + "&source=" + ft.source + "&word[]=" + encodeURIComponent(ft.dec[0]) + "&word[]=" + encodeURIComponent(ft.dec[1]) + "&word[]=" + encodeURIComponent(ft.dec[2]) + "&word[]=" + encodeURIComponent(ft.dec[3]) + "&word[]=" + encodeURIComponent(ft.dec[4]) + "&word[]=" + encodeURIComponent(ft.dec[5]) + "&word[]=" + encodeURIComponent(ft.dec[6]) + "&word[]=" + encodeURIComponent(ft.dec[7]) + "&word[]=" + encodeURIComponent(ft.dec[8]) + "&identity=" + encodeURIComponent(ft.dec[9]) + "&gender=" + ft.gender + "&color=" + ft.color + "&image=" + encodeURIComponent(ft.img), a.onload = function () {
+            n = "style=" + ft.style + "&source=" + ft.source + "&word[]=" + encodeURIComponent(ft.dec[0]) + "&word[]=" + encodeURIComponent(ft.dec[1]) + "&word[]=" + encodeURIComponent(ft.dec[2]) + "&word[]=" + encodeURIComponent(ft.dec[3]) + "&word[]=" + encodeURIComponent(ft.dec[4]) + "&word[]=" + encodeURIComponent(ft.dec[5]) + "&identity=" + encodeURIComponent(ft.dec[6]) + "&color=" + ft.color + "&image=" + encodeURIComponent(ft.img), a.onload = function () {
                 var t = JSON.parse(a.responseText);
                 Wt(t)
             }, a.open("post", "/stpro/info", !0), a.setRequestHeader("Content-type", "application/x-www-form-urlencoded"), a.send(n)
