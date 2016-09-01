@@ -44,7 +44,7 @@ $app->post('/stpro/info', function ($request, $response, $args) {
     $identity = $request->getParam('identity', '');
     $img_origin = $this->Image->make($img_data);
     $font_func = function($font) {
-        $font->file("../public/font/gbk.ttf");
+        $font->file("../public/font/gbk.TTF");
         $font->size(38);
         $font->align('left');
         $font->valign('top');
