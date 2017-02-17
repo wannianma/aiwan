@@ -24,10 +24,18 @@ $app->get('/stpro/getMask', function ($request, $response, $args) {
 
 $app->get('/wx/jsconfig', function ($request, $response, $args) {
     $this->logger->info("aiwan '/wx/jsconfig' route");
-    $url = $request->getQueryParams('url', '');
+    $params = $request->getQueryParams('url', '');
 
-    $signPackage = $this->wx->getSignPackage($url);
+    $signPackage = $this->wx->getSignPackage($params['url']);
     return $response->withJson($signPackage);
+});
+
+$app->get('/wx/jsconfig/html', function ($request, $response, $args) {
+    $this->logger->info("aiwan '/wx/jsconfig/html' route");
+    $params = $request->getQueryParams('url', '');
+
+    $signPackage = $this->wx->getSignPackage($params['url']);
+    return $response->write('setConfigData('.json_encode($signPackage).')');
 });
 
 $app->post('/stpro/info', function ($request, $response, $args) {
