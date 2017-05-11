@@ -2,7 +2,8 @@
 logs/*
 composer.lock
 vendor
+src/caches/*
+!src/caches/.gitignore
 stpro
 php_errors.log
 public/favicon.ico
-

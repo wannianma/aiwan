@@ -33,9 +33,20 @@ $app->get('/wx/jsconfig', function ($request, $response, $args) {
 $app->get('/wx/jsconfig/html', function ($request, $response, $args) {
     $this->logger->info("aiwan '/wx/jsconfig/html' route");
     $params = $request->getQueryParams('url', '');
-
     $signPackage = $this->wx->getSignPackage($params['url']);
     return $response->write('setConfigData('.json_encode($signPackage).')');
+});
+
+// bing 图片API
+$app->get('/bing/img_addr', function ($request, $response, $args) {
+    $type = $request->getQueryParams('type', 'img');
+    $data = json_decode(Tools::get_php_file('bing_img'), 1);
+    if (empty($data) || strtotime($data['images'][0]['enddate']) + 3600 * 24 < time()) {
+        $res = file_get_contents('http://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1');
+        Tools::set_php_file('bing_img', $res);
+        $data = json_decode($res, 1);
+    }
+    return $response->write('document.body.style.background = \'url(' . 'http://cn.bing.com' . $data['images'][0]['url']. ') no-repeat\';');
 });
 
 $app->post('/stpro/info', function ($request, $response, $args) {
@@ -192,4 +203,12 @@ class Tools {
         }
     }
 
+    public static function get_php_file($filename) {
+        return trim(substr(file_get_contents(__DIR__ . '/caches/' .$filename), 15));
+    }
+    public static function set_php_file($filename, $content) {
+        $fp = fopen(__DIR__ . '/caches/' .$filename, "w");
+        fwrite($fp, "<?php exit();?>" . $content);
+        fclose($fp);
+    }
 }
